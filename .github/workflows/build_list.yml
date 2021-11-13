@@ -8,11 +8,6 @@ on:
     - main
     paths:
     - '**'
-  pull_request:
-    branches: 
-    - main
-    paths:
-    - '**'
 
 jobs:
   build:
@@ -21,6 +16,9 @@ jobs:
     - uses: AutoModality/action-clean@v1
     - name: checkout
       uses: actions/checkout@v2
+        with:
+          persist-credentials: false 
+          fetch-depth: 0
     - name: install jq
       run: sudo apt-get update -y; sudo apt-get install --no-install-recommends -y jq curl    
     - name: curl api
@@ -31,3 +29,13 @@ jobs:
       run: rm -rf all.txt ; cat *.txt >> all.txt
     - name: print responses
       run: cat *.txt
+    - name: Commit files
+      run: |
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git commit -m "Add changes" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
