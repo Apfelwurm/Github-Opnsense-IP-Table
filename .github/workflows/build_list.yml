@@ -24,7 +24,7 @@ jobs:
     - name: curl api
       run: curl -s https://api.github.com/meta >> answer    
     - name: format response
-      run: 'for i in "web" "hooks" "api" "git" "packages" "pages" "importer" "actions" "dependabot"; do cat answer |jq --arg SELECTOR "$i" ''.[$SELECTOR][]'' | sed ''s|"||g'' >> $i.txt; done'
+      run: 'for i in "web" "hooks" "api" "git" "packages" "pages" "importer" "actions" "dependabot"; do cat answer |jq --arg SELECTOR "$i" ''.[$SELECTOR][]'' | sed ''s|"||g'' > $i.txt; done'
     - name: combine responses
       run: rm -rf all.txt ; cat *.txt >> all.txt
     - name: print responses
