@@ -31,7 +31,3 @@ jobs:
       run: rm -rf all.txt ; cat *.txt >> all.txt
     - name: print responses
       run: cat *.txt
-    
-
-
-   
