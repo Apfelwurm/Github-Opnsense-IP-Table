@@ -1,0 +1,37 @@
+name: build_list
+on:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '30 14 * * *'
+  push:
+    branches: 
+    - main
+    paths:
+    - '**'
+  pull_request:
+    branches: 
+    - main
+    paths:
+    - '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  
+    steps:
+    - uses: AutoModality/action-clean@v1
+    - name: checkout
+      uses: actions/checkout@v2
+    - name: install jq
+      run: sudo apt-get update -y; sudo apt-get install --no-install-recommends -y jq curl    
+    - name: curl api
+      run: curl -s https://api.github.com/meta >> answer    
+    - name: format response
+      run: 'for i in "web" "hooks" "api" "git" "packages" "pages" "importer" "actions" "dependabot"; do cat answer |jq --arg SELECTOR "$i" ''.[$SELECTOR][]'' | sed ''s|"||g'' >> $i.txt; done'
+    - name: combine responses
+      run: rm -rf all.txt ; cat *.txt >> all.txt
+    - name: print responses
+      run: cat *.txt
+    
+
+
+   
