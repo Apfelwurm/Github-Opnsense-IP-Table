@@ -8976,7 +8976,14 @@
       "*.github.com",
       "*.githubusercontent.com",
       "default.exp-tas.com",
-      "*.githubcopilot.com"
+      "*.githubcopilot.com",
+      "production-copilot-host.webpubsub.azure.com",
+      "production-copilot-host-centralus.webpubsub.azure.com",
+      "production-copilot-host-centralus-02.webpubsub.azure.com",
+      "production-copilot-host-westus.webpubsub.azure.com",
+      "production-copilot-host-westus3.webpubsub.azure.com",
+      "production-copilot-host-eastasia.webpubsub.azure.com",
+      "production-copilot-host-austriaeast.webpubsub.azure.com"
     ],
     "packages": [
       "mavenregistryv2prod.blob.core.windows.net",
